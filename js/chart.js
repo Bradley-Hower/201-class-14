@@ -15,41 +15,52 @@ statechart.loadItems();
  *
  */
 
-// function renderChart() {
-//   let chartObj = {
-//     type: 'bar',
-//     data: {
-//       labels: statechart.allProducts.name,
-//       datasets: [{
-//         label: '# of Views',
-//         data: oddduckviews, // array that will hold the views
-//         borderWidth: 5,
-//         backgroundColor: 'red',
-//         borderColor: 'red'
-//       },
-//       {
-//         label: '# of Votes',
-//         data: oddduckvotes, // array that will hold the # of votes
-//         borderWidth: 5,
-//         backgroundColor: 'blue',
-//         borderColor: 'blue'
-//       }
-//       ]
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true,
-//           ticks: {
-//             stepSize: 1,
-//           }
-//         }
-//       }
-//     }
-//   };
+function renderChart() {
 
-//   surverychart = new Chart(ctx, chartObj);
-// }
+  let oddducknames = [];
+  let oddduckshows = [];
+  let oddduckclicks = [];
+
+  for(let i = 0; i < statechart.allProducts.length; i++){
+    oddducknames.push(statechart.allProducts[i].name);
+    oddduckshows.push(statechart.allProducts[i].timesShown);
+    oddduckclicks.push(statechart.allProducts[i].timesClicked);
+  }
+
+  let chartObj = {
+    type: 'bar',
+    data: {
+      labels: oddducknames,
+      datasets: [{
+        label: '# of Views',
+        data: oddduckshows, // array that will hold the views
+        borderWidth: 5,
+        backgroundColor: 'red',
+        borderColor: 'red'
+      },
+      {
+        label: '# of Votes',
+        data: oddduckclicks, // array that will hold the # of votes
+        borderWidth: 5,
+        backgroundColor: 'blue',
+        borderColor: 'blue'
+      }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          }
+        }
+      }
+    }
+  };
+
+  new Chart(canvasElem, chartObj);
+}
 
 
 

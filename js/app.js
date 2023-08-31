@@ -31,16 +31,16 @@ AppState.prototype.loadItems = function () {
 
   if (parsedarraydata){
     for(let i = 0; i < parsedarraydata.length; i++){
-      if (parsedarraydata.name === 'sweep'){
+      if (parsedarraydata[i].name === 'sweep'){
         let reconstruct_png_productobject = new Product(parsedarraydata[i].name, 'png');
         reconstruct_png_productobject.timesClicked = parsedarraydata[i].timesClicked;
         reconstruct_png_productobject.timesShown = parsedarraydata[i].timesShown;
-        this.allProducts.push(reconstruct_png_productobject)
+        this.allProducts.push(reconstruct_png_productobject);
       } else {
         let reconstruct_productobject = new Product(parsedarraydata[i].name);
         reconstruct_productobject.timesClicked = parsedarraydata[i].timesClicked;
         reconstruct_productobject.timesShown = parsedarraydata[i].timesShown;
-        this.allProducts.push(reconstruct_productobject)
+        this.allProducts.push(reconstruct_productobject);
       }
     }
   } else {
