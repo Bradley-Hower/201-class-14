@@ -10,9 +10,9 @@ AppState.prototype.instantiateProducts = function () {
 
   for (let i = 0; i < productNames.length; i++) {
     if (productNames[i] === 'sweep') {
-      this.allProducts.push(new Product(productNames[i], 'png'))
+      this.allProducts.push(new Product(productNames[i], 'png'));
     } else {
-      this.allProducts.push(new Product(productNames[i]))
+      this.allProducts.push(new Product(productNames[i]));
     }
   }
 
@@ -20,13 +20,32 @@ AppState.prototype.instantiateProducts = function () {
 
 AppState.prototype.saveToLocalStorage = function () {
   // TODO: Fill in this instance method to save product data to local storage
+  let stringifiedarraydata = JSON.stringify(this.allProducts);
+  localStorage.setItem('storedproductsstring',stringifiedarraydata);
 }
 
 AppState.prototype.loadItems = function () {
-
   // TODO: Update this instance method to retrieve data from local storage instead of creating new Products on each page load
+  let pulledarraydata = localStorage.getItem('storedproductsstring');
+  let parsedarraydata = JSON.parse(pulledarraydata);
 
-  this.instantiateProducts();
+  if (parsedarraydata){
+    for(let i = 0; i < parsedarraydata.length; i++){
+      if (parsedarraydata.name === 'sweep'){
+        let reconstruct_png_productobject = new Product(parsedarraydata[i].name, 'png');
+        reconstruct_png_productobject.timesClicked = parsedarraydata[i].timesClicked;
+        reconstruct_png_productobject.timesShown = parsedarraydata[i].timesShown;
+        this.allProducts.push(reconstruct_png_productobject)
+      } else {
+        let reconstruct_productobject = new Product(parsedarraydata[i].name);
+        reconstruct_productobject.timesClicked = parsedarraydata[i].timesClicked;
+        reconstruct_productobject.timesShown = parsedarraydata[i].timesShown;
+        this.allProducts.push(reconstruct_productobject)
+      }
+    }
+  } else {
+    this.instantiateProducts();
+  }
 
 }
 
